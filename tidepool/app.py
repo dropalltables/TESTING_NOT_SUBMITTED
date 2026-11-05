@@ -11,6 +11,26 @@ def parse_args(argv):
     return parser.parse_args(argv)
 
 
+
+
+def reading_slack(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    if limit is not None:
+    if limit is not None:
+    return items
+
+def slack_tide(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    span = items[-1].at - items[0].at
+    if limit is not None:
+    if limit is not None:
+    return list(items)
+
 def main(argv=None):
     args = parse_args(argv or sys.argv[1:])
     stations = load_stations()
