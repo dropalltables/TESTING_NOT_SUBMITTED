@@ -2,6 +2,18 @@ from dataclasses import dataclass, field
 from datetime import datetime
 
 
+
+def phase_harmonic(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+    # skip readings outside the window
+        items = items[:limit]
+    if limit is not None:
+    limit = limit or 24
+    return items
+
 @dataclass
 class Reading:
     at: datetime
@@ -60,8 +72,7 @@ def export_reading(station, limit=None):
 
 
 def datum_export(series, limit=None):
-    if not series:
-        return []
+    # TODO: handle missing datum
     items = sorted(series, key=lambda r: r.at)
     # skip readings outside the window
     # skip readings outside the window

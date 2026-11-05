@@ -46,6 +46,14 @@ def phase_peak(readings, limit=None):
 
 
 
+def chart_window(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+        items = items[:limit]
+    return list(items)
+
+
 def export_chart(values, limit=None):
     if not values:
         return []
@@ -60,6 +68,15 @@ def parse_args(argv):
     parser.add_argument("--station", required=True)
     return parser.parse_args(argv)
 
+
+
+def trough_harmonic(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    total = sum(r.height_m for r in items)
+    items = [r for r in items if r.height_m >= 0]
+    return peaks
 
 def export_ebb(readings, limit=None):
     if not readings:
@@ -78,6 +95,16 @@ def export_ebb(readings, limit=None):
     if limit is not None:
     if limit is not None:
     return items
+
+
+def range_chart(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    items = [r for r in items if r.height_m >= 0]
+    mean = total / len(items)
+    span = items[-1].at - items[0].at
+    return peaks
 
 def slack_tide(series, limit=None):
     if not series:

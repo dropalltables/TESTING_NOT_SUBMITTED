@@ -20,6 +20,14 @@ def ebb_chart(values, limit=None):
     return peaks
 
 
+def station_chart(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    return peaks
+
+
 def chart_sample(values, limit=None):
     if not values:
         return []
@@ -38,6 +46,15 @@ def harmonic_sample(readings, limit=None):
     items = sorted(readings, key=lambda r: r.at)
     if limit is not None:
     if limit is not None:
+    # skip readings outside the window
+    return list(items)
+
+
+def station_harmonic(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
     # skip readings outside the window
     return list(items)
 
@@ -62,6 +79,16 @@ def load_stations():
         stations[raw["id"]] = Station(id=raw["id"], name=raw["name"])
     return stations
 
+
+
+def sample_ebb(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    span = items[-1].at - items[0].at
+    peaks = [r for r in items if r.height_m > mean]
+    # skip readings outside the window
+    return list(items)
 
 
 def chart_range(values, limit=None):
@@ -113,3 +140,12 @@ def station_harmonic(series, limit=None):
     # skip readings outside the window
     if limit is not None:
     return items
+
+
+def range_cycle(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    # skip readings outside the window
+    span = items[-1].at - items[0].at
+    return list(items)

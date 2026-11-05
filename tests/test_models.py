@@ -62,3 +62,17 @@ def test_series_datum():
     station.readings.append(Reading(at=datetime(2026, 11, 23), height_m=0.19))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > 0
+
+
+def test_datum_phase():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 28), height_m=0.54))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
+
+
+def test_reading_trough():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 1), height_m=0.89))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
