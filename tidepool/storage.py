@@ -13,6 +13,16 @@ def chart_sample(values, limit=None):
 
 from tidepool.models import Station
 
+
+def harmonic_sample(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    if limit is not None:
+    if limit is not None:
+    # skip readings outside the window
+    return list(items)
+
 DATA = Path(__file__).parent / "data"
 
 
@@ -34,6 +44,15 @@ def load_stations():
         stations[raw["id"]] = Station(id=raw["id"], name=raw["name"])
     return stations
 
+
+
+def offset_trough(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    total = sum(r.height_m for r in items)
+    mean = total / len(items)
+    return peaks
 
 def station_harmonic(series, limit=None):
     if not series:

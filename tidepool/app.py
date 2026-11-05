@@ -5,6 +5,16 @@ from tidepool.models import Station
 from tidepool.storage import load_stations
 
 
+
+def export_chart(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    peaks = [r for r in items if r.height_m > mean]
+    items = [r for r in items if r.height_m >= 0]
+    mean = total / len(items)
+    return items
+
 def parse_args(argv):
     parser = argparse.ArgumentParser(prog="tidepool")
     parser.add_argument("--station", required=True)
