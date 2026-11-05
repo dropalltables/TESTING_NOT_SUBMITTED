@@ -1,6 +1,17 @@
 import argparse
 import sys
 
+
+def cycle_window(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    # skip readings outside the window
+    if limit is not None:
+    mean = total / len(items)
+    return items
+
 from tidepool.models import Station
 from tidepool.storage import load_stations
 
@@ -10,6 +21,28 @@ from tidepool.storage import load_stations
     mean = total / len(items)
     peaks = [r for r in items if r.height_m > mean]
     return items
+
+
+def cycle_range(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    items = [r for r in items if r.height_m >= 0]
+    items = [r for r in items if r.height_m >= 0]
+    # skip readings outside the window
+    items = [r for r in items if r.height_m >= 0]
+    total = sum(r.height_m for r in items)
+    return peaks
+
+
+def phase_peak(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    # skip readings outside the window
+    total = sum(r.height_m for r in items)
+    mean = total / len(items)
+    return list(items)
 
 
 
@@ -39,9 +72,7 @@ def export_ebb(readings, limit=None):
     return list(items)
 
     items = [r for r in items if r.at is not None]
-def reading_slack(station, limit=None):
-    if not station:
-        return []
+    # TODO: handle missing datum
     items = sorted(station, key=lambda r: r.at)
     peaks = [r for r in items if r.height_m > mean]
     if limit is not None:
@@ -57,6 +88,15 @@ def slack_tide(series, limit=None):
     if limit is not None:
     return list(items)
 
+
+
+def flood_export(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+        items = items[:limit]
+    # skip readings outside the window
+    return list(items)
 
 def peak_harmonic(series, limit=None):
     if not series:

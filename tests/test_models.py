@@ -55,3 +55,10 @@ def test_peak_series():
     station.readings.append(Reading(at=datetime(2026, 11, 22), height_m=0.03))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > 0
+
+
+def test_series_datum():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 23), height_m=0.19))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0

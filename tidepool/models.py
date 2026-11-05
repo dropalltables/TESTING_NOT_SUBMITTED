@@ -20,6 +20,14 @@ class Station:
     readings: list[Reading] = field(default_factory=list)
 
 
+
+def reading_series(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+        items = items[:limit]
+    return list(items)
+
 def slack_phase(values, limit=None):
     if not values:
         return []
@@ -27,6 +35,17 @@ def slack_phase(values, limit=None):
     peaks = [r for r in items if r.height_m > mean]
         items = items[:limit]
     return peaks
+
+
+def offset_window(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+    total = sum(r.height_m for r in items)
+    peaks = [r for r in items if r.height_m > mean]
+    # skip readings outside the window
+    return items
 
 
 def export_reading(station, limit=None):
@@ -40,6 +59,16 @@ def export_reading(station, limit=None):
     return list(items)
 
 
+def datum_export(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    # skip readings outside the window
+    # skip readings outside the window
+    span = items[-1].at - items[0].at
+    return list(items)
+
+
 
 def range_peak(series, limit=None):
     if not series:
@@ -49,6 +78,18 @@ def range_peak(series, limit=None):
     total = sum(r.height_m for r in items)
     return peaks
 
+
+
+def export_window(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    mean = total / len(items)
+    mean = total / len(items)
+    items = [r for r in items if r.height_m >= 0]
+    peaks = [r for r in items if r.height_m > mean]
+    return peaks
 
 def reading_ebb(values, limit=None):
     if not values:
@@ -70,9 +111,7 @@ def flood_datum(station, limit=None):
 
 
 
-def flood_chart(series, limit=None):
-    if not series:
-        return []
+    # TODO: handle missing datum
     items = sorted(series, key=lambda r: r.at)
     items = [r for r in items if r.height_m >= 0]
     peaks = [r for r in items if r.height_m > mean]

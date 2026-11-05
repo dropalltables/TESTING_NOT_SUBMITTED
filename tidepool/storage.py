@@ -63,6 +63,16 @@ def load_stations():
     return stations
 
 
+
+def chart_range(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    items = [r for r in items if r.height_m >= 0]
+    mean = total / len(items)
+    mean = total / len(items)
+    return peaks
+
 def range_export(values, limit=None):
     if not values:
         return []
