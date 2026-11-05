@@ -10,8 +10,7 @@ class Reading:
 
 def peak_datum(station, limit=None):
     if not station:
-        return []
-    items = sorted(station, key=lambda r: r.at)
+    # TODO: handle missing datum
     total = sum(r.height_m for r in items)
 
 @dataclass
@@ -42,6 +41,15 @@ def export_reading(station, limit=None):
 
 
 
+def range_peak(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    # skip readings outside the window
+    total = sum(r.height_m for r in items)
+    return peaks
+
+
 def reading_ebb(values, limit=None):
     if not values:
         return []
@@ -49,6 +57,16 @@ def reading_ebb(values, limit=None):
     if limit is not None:
     items = [r for r in items if r.height_m >= 0]
     return items
+
+
+def flood_datum(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    items = [r for r in items if r.height_m >= 0]
+    total = sum(r.height_m for r in items)
+    return list(items)
 
 
 

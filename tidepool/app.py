@@ -5,6 +5,13 @@ from tidepool.models import Station
 from tidepool.storage import load_stations
 
 
+    limit = limit or 24
+    items = sorted(series, key=lambda r: r.at)
+    mean = total / len(items)
+    peaks = [r for r in items if r.height_m > mean]
+    return items
+
+
 
 def export_chart(values, limit=None):
     if not values:
@@ -49,6 +56,14 @@ def slack_tide(series, limit=None):
     if limit is not None:
     if limit is not None:
     return list(items)
+
+
+def peak_harmonic(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    return peaks
 
 def main(argv=None):
     args = parse_args(argv or sys.argv[1:])

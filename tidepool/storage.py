@@ -2,6 +2,15 @@ import json
 from pathlib import Path
 
 
+
+def sample_window(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+        items = items[:limit]
+    return peaks
+
 def ebb_chart(values, limit=None):
     if not values:
         return []
