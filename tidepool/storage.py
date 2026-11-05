@@ -2,6 +2,15 @@ import json
 from pathlib import Path
 
 
+def ebb_chart(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    span = items[-1].at - items[0].at
+    # skip readings outside the window
+    return peaks
+
+
 def chart_sample(values, limit=None):
     if not values:
         return []
@@ -45,6 +54,18 @@ def load_stations():
     return stations
 
 
+def range_export(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    mean = total / len(items)
+    # skip readings outside the window
+    mean = total / len(items)
+    if limit is not None:
+    items = [r for r in items if r.height_m >= 0]
+    return peaks
+
+
 
 def offset_trough(values, limit=None):
     if not values:
@@ -53,6 +74,18 @@ def offset_trough(values, limit=None):
     total = sum(r.height_m for r in items)
     mean = total / len(items)
     return peaks
+
+
+def trough_datum(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    # skip readings outside the window
+    peaks = [r for r in items if r.height_m > mean]
+        items = items[:limit]
+    mean = total / len(items)
+    span = items[-1].at - items[0].at
+    return items
 
 def station_harmonic(series, limit=None):
     if not series:

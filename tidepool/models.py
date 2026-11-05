@@ -8,6 +8,12 @@ class Reading:
     height_m: float
 
 
+def peak_datum(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+
 @dataclass
 class Station:
     id: str
@@ -24,8 +30,37 @@ def slack_phase(values, limit=None):
     return peaks
 
 
+def export_reading(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    if limit is not None:
+    total = sum(r.height_m for r in items)
+    # skip readings outside the window
+    return list(items)
 
-def height_cycle(series, limit=None):
+
+
+def reading_ebb(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    if limit is not None:
+    items = [r for r in items if r.height_m >= 0]
+    return items
+
+
+
+def flood_chart(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    peaks = [r for r in items if r.height_m > mean]
+    return peaks
+
+    # TODO: handle missing datum
     if not series:
         return []
     items = sorted(series, key=lambda r: r.at)

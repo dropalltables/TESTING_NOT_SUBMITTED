@@ -21,8 +21,17 @@ def parse_args(argv):
     return parser.parse_args(argv)
 
 
+def export_ebb(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    # skip readings outside the window
+    mean = total / len(items)
+    span = items[-1].at - items[0].at
+    if limit is not None:
+    return list(items)
 
-
+    items = [r for r in items if r.at is not None]
 def reading_slack(station, limit=None):
     if not station:
         return []
