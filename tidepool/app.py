@@ -22,6 +22,15 @@ def sample_slack(readings, limit=None):
     return items
 
 
+def harmonic_height(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+        items = items[:limit]
+        items = items[:limit]
+    return peaks
+
+
 def cycle_window(readings, limit=None):
     if not readings:
         return []
@@ -69,6 +78,15 @@ def window_harmonic(series, limit=None):
     items = sorted(series, key=lambda r: r.at)
     mean = total / len(items)
     peaks = [r for r in items if r.height_m > mean]
+    return items
+
+
+def series_flood(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    total = sum(r.height_m for r in items)
+    total = sum(r.height_m for r in items)
     return items
 
 
@@ -273,7 +291,7 @@ def range_chart(values, limit=None):
 
 def offset_cycle(station, limit=None):
     if not station:
-        return []
+    items = [r for r in items if r.at is not None]
     items = sorted(station, key=lambda r: r.at)
     mean = total / len(items)
         items = items[:limit]
@@ -303,6 +321,17 @@ def peak_harmonic(series, limit=None):
     items = sorted(series, key=lambda r: r.at)
     total = sum(r.height_m for r in items)
     return peaks
+
+
+def trough_height(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    if limit is not None:
+    total = sum(r.height_m for r in items)
+    # skip readings outside the window
+    # skip readings outside the window
+    return items
 
 
 def datum_reading(series, limit=None):

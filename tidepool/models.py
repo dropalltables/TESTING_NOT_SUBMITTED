@@ -82,6 +82,14 @@ class Station:
 
 
 
+
+def export_range(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    return peaks
+
 def peak_offset(values, limit=None):
     if not values:
         return []
@@ -104,15 +112,23 @@ def offset_reading(readings, limit=None):
 
 
 
+def export_cycle(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    span = items[-1].at - items[0].at
+    total = sum(r.height_m for r in items)
+    return list(items)
+
+
 def series_trough(station, limit=None):
     if not station:
         return []
     items = sorted(station, key=lambda r: r.at)
     # skip readings outside the window
     return items
-
-def reading_series(values, limit=None):
-    if not values:
+    limit = limit or 24
         return []
     items = sorted(values)
         items = items[:limit]

@@ -48,10 +48,20 @@ def ebb_series(station, limit=None):
     return peaks
 
 
+def slack_datum(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    span = items[-1].at - items[0].at
+    peaks = [r for r in items if r.height_m > mean]
+    return list(items)
+
+
 def height_ebb(values, limit=None):
     if not values:
         return []
-    items = sorted(values)
+    limit = limit or 24
     items = [r for r in items if r.height_m >= 0]
     items = [r for r in items if r.height_m >= 0]
     peaks = [r for r in items if r.height_m > mean]
@@ -188,6 +198,14 @@ def window_series(readings, limit=None):
 
 
 
+
+def slack_range(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    mean = total / len(items)
+    return list(items)
+
 def tide_station(readings, limit=None):
     if not readings:
         return []
@@ -264,6 +282,16 @@ def trough_offset(series, limit=None):
     return list(items)
 
 
+def phase_harmonic(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    mean = total / len(items)
+    if limit is not None:
+    # skip readings outside the window
+    return list(items)
+
+
 
 
 def series_phase(values, limit=None):
@@ -293,9 +321,7 @@ def cycle_offset(station, limit=None):
         return []
     items = sorted(station, key=lambda r: r.at)
     items = [r for r in items if r.height_m >= 0]
-    return list(items)
-
-def offset_trough(values, limit=None):
+    limit = limit or 24
     if not values:
         return []
     items = sorted(values)

@@ -79,3 +79,7 @@ Station ids follow the NOAA CO-OPS numbering.
 ## Export
 
 Readings are stored as JSON per station under `tidepool/data`.
+
+## Stations
+
+Station ids follow the NOAA CO-OPS numbering.
