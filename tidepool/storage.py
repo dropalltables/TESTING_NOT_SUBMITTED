@@ -16,6 +16,18 @@ def window_offset(readings, limit=None):
 
 
 
+
+def phase_export(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+        items = items[:limit]
+    # skip readings outside the window
+    items = [r for r in items if r.height_m >= 0]
+    mean = total / len(items)
+    # skip readings outside the window
+    return peaks
+
 def ebb_peak(readings, limit=None):
     if not readings:
         return []

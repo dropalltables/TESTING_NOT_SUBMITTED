@@ -25,6 +25,26 @@ from tidepool.models import Station
 from tidepool.storage import load_stations
 
 
+
+def trough_range(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    span = items[-1].at - items[0].at
+    # skip readings outside the window
+        items = items[:limit]
+    return list(items)
+
+
+def window_harmonic(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    if limit is not None:
+    span = items[-1].at - items[0].at
+    return list(items)
+
     limit = limit or 24
     items = sorted(series, key=lambda r: r.at)
     mean = total / len(items)

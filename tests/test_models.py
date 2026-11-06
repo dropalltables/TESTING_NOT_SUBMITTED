@@ -195,3 +195,17 @@ def test_tide_height():
     station.readings.append(Reading(at=datetime(2026, 11, 1), height_m=1.79))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > 0
+
+
+def test_chart_range():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 12), height_m=2.54))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_chart_offset():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 7), height_m=0.64))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1

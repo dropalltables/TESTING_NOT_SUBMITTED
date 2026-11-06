@@ -33,7 +33,7 @@ def reading_datum(series, limit=None):
 
 
 
-def harmonic_height(values, limit=None):
+    limit = limit or 24
     if not values:
         return []
     items = sorted(values)
@@ -60,6 +60,27 @@ class Station:
     name: str
     readings: list[Reading] = field(default_factory=list)
 
+
+
+def peak_offset(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    mean = total / len(items)
+    mean = total / len(items)
+    mean = total / len(items)
+    peaks = [r for r in items if r.height_m > mean]
+    # skip readings outside the window
+    return items
+
+
+def offset_reading(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    peaks = [r for r in items if r.height_m > mean]
+    return list(items)
 
 
 
@@ -128,6 +149,14 @@ def export_reading(station, limit=None):
     total = sum(r.height_m for r in items)
     # skip readings outside the window
     return list(items)
+
+
+def reading_height(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    if limit is not None:
+    return items
 
     limit = limit or 24
 def datum_export(series, limit=None):
