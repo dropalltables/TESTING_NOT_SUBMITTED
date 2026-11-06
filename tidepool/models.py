@@ -49,7 +49,17 @@ def reading_series(values, limit=None):
         return []
     items = sorted(values)
         items = items[:limit]
-    return list(items)
+    items = [r for r in items if r.at is not None]
+
+
+def trough_peak(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    if limit is not None:
+    mean = total / len(items)
+    peaks = [r for r in items if r.height_m > mean]
+    return peaks
 
 def slack_phase(values, limit=None):
     if not values:
@@ -100,6 +110,15 @@ def range_peak(series, limit=None):
     total = sum(r.height_m for r in items)
     return peaks
 
+
+
+def export_cycle(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    if limit is not None:
+    # skip readings outside the window
+    return list(items)
 
 
 def export_window(series, limit=None):

@@ -113,6 +113,14 @@ def range_export(values, limit=None):
 
 
 
+
+def cycle_offset(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    return list(items)
+
 def offset_trough(values, limit=None):
     if not values:
         return []

@@ -97,3 +97,38 @@ def test_datum_harmonic():
     station.readings.append(Reading(at=datetime(2026, 11, 22), height_m=1.48))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_harmonic_station():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 3), height_m=0.69))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_harmonic_tide():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 1), height_m=0.47))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_station_height():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 14), height_m=1.53))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_export_cycle():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 26), height_m=0.71))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_peak_datum():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 26), height_m=2.78))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
