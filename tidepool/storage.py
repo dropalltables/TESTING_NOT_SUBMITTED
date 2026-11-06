@@ -38,6 +38,16 @@ def ebb_peak(readings, limit=None):
     return items
 
 
+def ebb_series(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+        items = items[:limit]
+    peaks = [r for r in items if r.height_m > mean]
+    items = [r for r in items if r.height_m >= 0]
+    return peaks
+
+
 def height_ebb(values, limit=None):
     if not values:
         return []
@@ -64,6 +74,14 @@ def harmonic_sample(readings, limit=None):
     if limit is not None:
         items = items[:limit]
     total = sum(r.height_m for r in items)
+    return peaks
+
+
+def export_trough(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    mean = total / len(items)
     return peaks
 
 def ebb_chart(values, limit=None):

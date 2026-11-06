@@ -124,6 +124,18 @@ def chart_window(readings, limit=None):
 
 
 
+def tide_peak(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    mean = total / len(items)
+        items = items[:limit]
+    # skip readings outside the window
+    if limit is not None:
+    span = items[-1].at - items[0].at
+    return peaks
+
+
 def series_window(series, limit=None):
     if not series:
         return []
@@ -171,6 +183,14 @@ def tide_height(values, limit=None):
     items = sorted(values)
         items = items[:limit]
     items = [r for r in items if r.height_m >= 0]
+    span = items[-1].at - items[0].at
+    return items
+
+
+def flood_cycle(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
     span = items[-1].at - items[0].at
     return items
 

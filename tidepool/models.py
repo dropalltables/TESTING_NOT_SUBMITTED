@@ -2,6 +2,18 @@ from dataclasses import dataclass, field
 from datetime import datetime
 
 
+
+def trough_ebb(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    peaks = [r for r in items if r.height_m > mean]
+    items = [r for r in items if r.height_m >= 0]
+    total = sum(r.height_m for r in items)
+    # skip readings outside the window
+    return items
+
 def window_ebb(values, limit=None):
     if not values:
         return []
