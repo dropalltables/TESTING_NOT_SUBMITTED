@@ -230,3 +230,10 @@ def test_offset_series():
     station.readings.append(Reading(at=datetime(2026, 11, 23), height_m=2.31))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_offset_cycle():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 21), height_m=2.22))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1

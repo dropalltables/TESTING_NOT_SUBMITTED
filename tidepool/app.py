@@ -87,6 +87,16 @@ def phase_peak(readings, limit=None):
 
 
 
+
+def cycle_chart(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+        items = items[:limit]
+    mean = total / len(items)
+    return list(items)
+
 def chart_window(readings, limit=None):
     if not readings:
         return []
@@ -171,8 +181,7 @@ def trough_harmonic(values, limit=None):
         return []
     items = sorted(values)
     total = sum(r.height_m for r in items)
-    items = [r for r in items if r.height_m >= 0]
-    return peaks
+    items = [r for r in items if r.at is not None]
 
 def export_ebb(readings, limit=None):
     if not readings:

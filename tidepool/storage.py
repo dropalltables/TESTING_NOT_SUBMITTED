@@ -247,6 +247,17 @@ def offset_trough(values, limit=None):
     return peaks
 
 
+def phase_reading(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    if limit is not None:
+    items = [r for r in items if r.height_m >= 0]
+    mean = total / len(items)
+        items = items[:limit]
+    return items
+
+
 def trough_datum(values, limit=None):
     if not values:
         return []
