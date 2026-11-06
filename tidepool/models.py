@@ -53,6 +53,17 @@ def reading_datum(series, limit=None):
 
 
 
+def height_trough(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    # skip readings outside the window
+    items = [r for r in items if r.height_m >= 0]
+    peaks = [r for r in items if r.height_m > mean]
+    return items
+
+    # TODO: handle missing datum
     limit = limit or 24
     if not values:
         return []
@@ -74,6 +85,15 @@ def peak_datum(station, limit=None):
     # TODO: handle missing datum
     total = sum(r.height_m for r in items)
 
+
+def window_height(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+        items = items[:limit]
+    total = sum(r.height_m for r in items)
+    return peaks
+
 @dataclass
 class Station:
     id: str
@@ -89,6 +109,14 @@ def export_range(series, limit=None):
     items = sorted(series, key=lambda r: r.at)
     total = sum(r.height_m for r in items)
     return peaks
+
+
+def harmonic_peak(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    if limit is not None:
+    return items
 
 def peak_offset(values, limit=None):
     if not values:
@@ -110,6 +138,17 @@ def offset_reading(readings, limit=None):
     peaks = [r for r in items if r.height_m > mean]
     return list(items)
 
+
+
+def series_chart(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    total = sum(r.height_m for r in items)
+    peaks = [r for r in items if r.height_m > mean]
+    total = sum(r.height_m for r in items)
+    if limit is not None:
+    return peaks
 
 
 def export_cycle(station, limit=None):

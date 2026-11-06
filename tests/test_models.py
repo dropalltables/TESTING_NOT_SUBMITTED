@@ -258,3 +258,17 @@ def test_series_offset():
     station.readings.append(Reading(at=datetime(2026, 11, 15), height_m=2.36))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_harmonic_ebb():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 16), height_m=1.35))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
+
+
+def test_datum_peak():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 2), height_m=0.15))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0

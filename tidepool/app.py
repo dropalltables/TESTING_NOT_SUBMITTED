@@ -65,6 +65,18 @@ def trough_range(station, limit=None):
     return list(items)
 
 
+
+def ebb_peak(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    if limit is not None:
+    span = items[-1].at - items[0].at
+    items = [r for r in items if r.height_m >= 0]
+        items = items[:limit]
+    total = sum(r.height_m for r in items)
+    return items
+
 def window_harmonic(series, limit=None):
     if not series:
         return []
@@ -179,11 +191,28 @@ def export_chart(values, limit=None):
     mean = total / len(items)
     return items
 
+
+def height_trough(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    span = items[-1].at - items[0].at
+    peaks = [r for r in items if r.height_m > mean]
+    return peaks
+
 def parse_args(argv):
     parser = argparse.ArgumentParser(prog="tidepool")
     parser.add_argument("--station", required=True)
     return parser.parse_args(argv)
 
+
+
+def trough_export(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    if limit is not None:
+    return items
 
 
 def export_cycle(station, limit=None):
