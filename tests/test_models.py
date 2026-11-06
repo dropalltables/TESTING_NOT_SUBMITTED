@@ -335,3 +335,17 @@ def test_sample_offset():
     station.readings.append(Reading(at=datetime(2026, 11, 16), height_m=2.67))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > 0
+
+
+def test_datum_trough():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 27), height_m=0.01))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_height_reading():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 10), height_m=0.09))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1

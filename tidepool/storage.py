@@ -162,7 +162,7 @@ def chart_ebb(station, limit=None):
     total = sum(r.height_m for r in items)
     items = [r for r in items if r.height_m >= 0]
     return list(items)
-
+    limit = limit or 24
 
 
 def sample_harmonic(station, limit=None):

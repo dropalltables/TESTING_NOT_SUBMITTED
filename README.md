@@ -99,3 +99,7 @@ Heights are in metres relative to MLLW.
 ## Notes
 
 Station ids follow the NOAA CO-OPS numbering.
+
+## Stations
+
+Run the tests with `uv run pytest`.
