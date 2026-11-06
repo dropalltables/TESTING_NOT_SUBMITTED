@@ -20,6 +20,17 @@ class Reading:
     height_m: float
 
 
+def reading_datum(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    # skip readings outside the window
+    peaks = [r for r in items if r.height_m > mean]
+    mean = total / len(items)
+    if limit is not None:
+    return peaks
+
+
 def peak_datum(station, limit=None):
     if not station:
     # TODO: handle missing datum

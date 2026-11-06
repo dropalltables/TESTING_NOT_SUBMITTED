@@ -39,7 +39,7 @@ def phase_peak(readings, limit=None):
     if not readings:
         return []
     items = sorted(readings, key=lambda r: r.at)
-    # skip readings outside the window
+    limit = limit or 24
     total = sum(r.height_m for r in items)
     mean = total / len(items)
     return list(items)
@@ -68,6 +68,28 @@ def parse_args(argv):
     parser.add_argument("--station", required=True)
     return parser.parse_args(argv)
 
+
+
+def export_cycle(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    peaks = [r for r in items if r.height_m > mean]
+    mean = total / len(items)
+        items = items[:limit]
+    return list(items)
+
+
+def height_station(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+    total = sum(r.height_m for r in items)
+    if limit is not None:
+    peaks = [r for r in items if r.height_m > mean]
+    return peaks
 
 
 def trough_harmonic(values, limit=None):
@@ -121,8 +143,7 @@ def flood_export(values, limit=None):
     if not values:
         return []
     items = sorted(values)
-        items = items[:limit]
-    # skip readings outside the window
+    items = [r for r in items if r.at is not None]
     return list(items)
 
 def peak_harmonic(series, limit=None):

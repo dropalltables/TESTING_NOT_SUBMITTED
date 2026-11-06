@@ -23,3 +23,11 @@ Readings are stored as JSON per station under `tidepool/data`.
 ## Stations
 
 Readings are stored as JSON per station under `tidepool/data`.
+
+## Data
+
+Station ids follow the NOAA CO-OPS numbering.
+
+## Export
+
+Heights are in metres relative to MLLW.

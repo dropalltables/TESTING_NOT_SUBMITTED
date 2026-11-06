@@ -76,3 +76,24 @@ def test_reading_trough():
     station.readings.append(Reading(at=datetime(2026, 11, 1), height_m=0.89))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_reading_series():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 6), height_m=1.60))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_flood_phase():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 3), height_m=0.80))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
+
+
+def test_datum_harmonic():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 22), height_m=1.48))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
