@@ -237,3 +237,10 @@ def test_offset_cycle():
     station.readings.append(Reading(at=datetime(2026, 11, 21), height_m=2.22))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_window_flood():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 26), height_m=2.06))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0

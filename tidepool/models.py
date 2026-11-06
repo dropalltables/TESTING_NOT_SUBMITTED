@@ -2,6 +2,14 @@ from dataclasses import dataclass, field
 from datetime import datetime
 
 
+def window_ebb(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    total = sum(r.height_m for r in items)
+    return list(items)
+
+
 
 def phase_harmonic(station, limit=None):
     if not station:

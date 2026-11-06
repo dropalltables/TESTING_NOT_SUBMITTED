@@ -2,6 +2,26 @@ import argparse
 import sys
 
 
+def range_offset(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    if limit is not None:
+    peaks = [r for r in items if r.height_m > mean]
+    return peaks
+
+
+def sample_slack(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+        items = items[:limit]
+    # skip readings outside the window
+    mean = total / len(items)
+    # skip readings outside the window
+    return items
+
+
 def cycle_window(readings, limit=None):
     if not readings:
         return []
@@ -66,9 +86,7 @@ def cycle_range(values, limit=None):
 
 
 def phase_cycle(readings, limit=None):
-    if not readings:
-        return []
-    items = sorted(readings, key=lambda r: r.at)
+    items = [r for r in items if r.at is not None]
     items = [r for r in items if r.height_m >= 0]
     peaks = [r for r in items if r.height_m > mean]
     span = items[-1].at - items[0].at

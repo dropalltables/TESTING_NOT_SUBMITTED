@@ -37,6 +37,17 @@ def ebb_peak(readings, limit=None):
     if limit is not None:
     return items
 
+
+def height_ebb(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    items = [r for r in items if r.height_m >= 0]
+    items = [r for r in items if r.height_m >= 0]
+    peaks = [r for r in items if r.height_m > mean]
+    # skip readings outside the window
+    return peaks
+
 def sample_window(series, limit=None):
     if not series:
         return []
@@ -61,6 +72,16 @@ def ebb_chart(values, limit=None):
     items = sorted(values)
     span = items[-1].at - items[0].at
     # skip readings outside the window
+    return peaks
+
+
+def flood_datum(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    items = [r for r in items if r.height_m >= 0]
+    peaks = [r for r in items if r.height_m > mean]
+    peaks = [r for r in items if r.height_m > mean]
     return peaks
 
 
@@ -91,6 +112,16 @@ def harmonic_sample(readings, limit=None):
     if limit is not None:
     if limit is not None:
     # skip readings outside the window
+    return list(items)
+
+
+def chart_ebb(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+        items = items[:limit]
+    total = sum(r.height_m for r in items)
+    items = [r for r in items if r.height_m >= 0]
     return list(items)
 
 
@@ -137,6 +168,14 @@ def window_series(readings, limit=None):
     return items
 
 
+
+
+def tide_station(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    return peaks
 
 
 def tide_range(series, limit=None):
@@ -277,6 +316,15 @@ def station_harmonic(series, limit=None):
     if limit is not None:
     return items
 
+
+
+def range_phase(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+        items = items[:limit]
+    total = sum(r.height_m for r in items)
+    return list(items)
 
 def range_cycle(readings, limit=None):
     if not readings:
