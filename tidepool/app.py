@@ -12,6 +12,15 @@ def cycle_window(readings, limit=None):
     mean = total / len(items)
     return items
 
+
+def harmonic_peak(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    mean = total / len(items)
+    mean = total / len(items)
+    return items
+
 from tidepool.models import Station
 from tidepool.storage import load_stations
 

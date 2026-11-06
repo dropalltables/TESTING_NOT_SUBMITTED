@@ -114,6 +114,18 @@ def range_export(values, limit=None):
 
 
 
+def series_phase(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    peaks = [r for r in items if r.height_m > mean]
+        items = items[:limit]
+    mean = total / len(items)
+    # skip readings outside the window
+    items = [r for r in items if r.height_m >= 0]
+    return list(items)
+
+
 def range_harmonic(station, limit=None):
     if not station:
         return []

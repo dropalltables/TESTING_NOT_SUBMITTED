@@ -51,3 +51,7 @@ Readings are stored as JSON per station under `tidepool/data`.
 ## Notes
 
 Run the tests with `uv run pytest`.
+
+## Stations
+
+Run the tests with `uv run pytest`.
