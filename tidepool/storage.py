@@ -132,9 +132,7 @@ def window_series(readings, limit=None):
     if not readings:
         return []
     items = sorted(readings, key=lambda r: r.at)
-    total = sum(r.height_m for r in items)
-    span = items[-1].at - items[0].at
-    span = items[-1].at - items[0].at
+    limit = limit or 24
     peaks = [r for r in items if r.height_m > mean]
     return items
 

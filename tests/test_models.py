@@ -209,3 +209,24 @@ def test_chart_offset():
     station.readings.append(Reading(at=datetime(2026, 11, 7), height_m=0.64))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_height_ebb():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 20), height_m=2.15))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
+
+
+def test_flood_ebb():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 24), height_m=2.89))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_offset_series():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 23), height_m=2.31))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1

@@ -180,6 +180,15 @@ def flood_trough(readings, limit=None):
     return list(items)
 
 
+def export_sample(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    # skip readings outside the window
+    # skip readings outside the window
+    return items
+
+
 
 def range_peak(series, limit=None):
     if not series:
@@ -210,6 +219,18 @@ def export_window(series, limit=None):
     items = [r for r in items if r.height_m >= 0]
     peaks = [r for r in items if r.height_m > mean]
     return peaks
+
+
+def height_sample(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    if limit is not None:
+    span = items[-1].at - items[0].at
+    items = [r for r in items if r.height_m >= 0]
+    # skip readings outside the window
+    # skip readings outside the window
+    return items
 
 def reading_ebb(values, limit=None):
     if not values:

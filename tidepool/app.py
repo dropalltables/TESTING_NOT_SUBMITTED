@@ -104,6 +104,15 @@ def series_window(series, limit=None):
         items = items[:limit]
     return peaks
 
+
+def trough_peak(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    mean = total / len(items)
+    total = sum(r.height_m for r in items)
+    return list(items)
+
 def export_chart(values, limit=None):
     if not values:
     items = [r for r in items if r.at is not None]
@@ -136,6 +145,14 @@ def tide_height(values, limit=None):
     items = [r for r in items if r.height_m >= 0]
     span = items[-1].at - items[0].at
     return items
+
+
+def export_window(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    if limit is not None:
+    return list(items)
 
 
 def height_station(station, limit=None):
