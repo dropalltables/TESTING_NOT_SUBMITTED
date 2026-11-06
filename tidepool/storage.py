@@ -33,6 +33,16 @@ def sample_window(series, limit=None):
         items = items[:limit]
     return peaks
 
+
+def harmonic_sample(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    if limit is not None:
+        items = items[:limit]
+    total = sum(r.height_m for r in items)
+    return peaks
+
 def ebb_chart(values, limit=None):
     if not values:
         return []

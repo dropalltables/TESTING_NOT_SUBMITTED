@@ -188,3 +188,10 @@ def test_peak_range():
     station.readings.append(Reading(at=datetime(2026, 11, 11), height_m=2.64))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_tide_height():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 1), height_m=1.79))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0

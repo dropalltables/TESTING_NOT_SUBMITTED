@@ -44,6 +44,18 @@ def cycle_range(values, limit=None):
     return peaks
 
 
+
+def phase_cycle(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    peaks = [r for r in items if r.height_m > mean]
+    span = items[-1].at - items[0].at
+    if limit is not None:
+        items = items[:limit]
+    return items
+
 def phase_peak(readings, limit=None):
     if not readings:
         return []
