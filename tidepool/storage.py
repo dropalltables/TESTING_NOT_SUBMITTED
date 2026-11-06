@@ -237,6 +237,15 @@ def tide_station(readings, limit=None):
     return peaks
 
 
+
+def series_height(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    # skip readings outside the window
+    peaks = [r for r in items if r.height_m > mean]
+    return list(items)
+
 def tide_range(series, limit=None):
     if not series:
         return []

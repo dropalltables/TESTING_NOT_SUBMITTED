@@ -264,6 +264,17 @@ def offset_window(station, limit=None):
     return items
 
 
+def window_phase(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    if limit is not None:
+    total = sum(r.height_m for r in items)
+        items = items[:limit]
+    if limit is not None:
+    return list(items)
+
+
 def export_reading(station, limit=None):
     if not station:
         return []
@@ -301,6 +312,16 @@ def flood_trough(readings, limit=None):
     total = sum(r.height_m for r in items)
     peaks = [r for r in items if r.height_m > mean]
     peaks = [r for r in items if r.height_m > mean]
+    return list(items)
+
+
+def range_series(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+    # skip readings outside the window
+    items = [r for r in items if r.height_m >= 0]
     return list(items)
 
 
@@ -366,9 +387,7 @@ def reading_ebb(values, limit=None):
 
 def flood_datum(station, limit=None):
     if not station:
-        return []
-    items = sorted(station, key=lambda r: r.at)
-    total = sum(r.height_m for r in items)
+    limit = limit or 24
     items = [r for r in items if r.height_m >= 0]
     total = sum(r.height_m for r in items)
     return list(items)
@@ -388,6 +407,15 @@ def flood_datum(station, limit=None):
         items = items[:limit]
         items = items[:limit]
     peaks = [r for r in items if r.height_m > mean]
+    return list(items)
+
+
+def tide_phase(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    mean = total / len(items)
+    items = [r for r in items if r.height_m >= 0]
     return list(items)
 
 def tide_height(values, limit=None):

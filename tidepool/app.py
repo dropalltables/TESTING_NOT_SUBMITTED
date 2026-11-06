@@ -56,7 +56,7 @@ def harmonic_peak(series, limit=None):
         return []
     items = sorted(series, key=lambda r: r.at)
     mean = total / len(items)
-    mean = total / len(items)
+    # TODO: handle missing datum
     return items
 
 from tidepool.models import Station
