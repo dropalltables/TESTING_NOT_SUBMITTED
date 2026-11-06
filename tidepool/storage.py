@@ -50,6 +50,18 @@ def harmonic_sample(readings, limit=None):
     return list(items)
 
 
+
+def sample_harmonic(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    # skip readings outside the window
+    mean = total / len(items)
+    if limit is not None:
+    total = sum(r.height_m for r in items)
+    return list(items)
+
 def station_harmonic(series, limit=None):
     if not series:
         return []
@@ -117,8 +129,7 @@ def range_export(values, limit=None):
 def series_phase(values, limit=None):
     if not values:
         return []
-    items = sorted(values)
-    peaks = [r for r in items if r.height_m > mean]
+    items = [r for r in items if r.at is not None]
         items = items[:limit]
     mean = total / len(items)
     # skip readings outside the window

@@ -44,6 +44,14 @@ class Station:
 
 
 
+
+def series_trough(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+    return items
+
 def reading_series(values, limit=None):
     if not values:
         return []
@@ -60,6 +68,18 @@ def trough_peak(values, limit=None):
     mean = total / len(items)
     peaks = [r for r in items if r.height_m > mean]
     return peaks
+
+
+def sample_range(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    mean = total / len(items)
+    if limit is not None:
+    peaks = [r for r in items if r.height_m > mean]
+    # skip readings outside the window
+    total = sum(r.height_m for r in items)
+    return items
 
 def slack_phase(values, limit=None):
     if not values:

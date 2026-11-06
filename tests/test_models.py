@@ -139,3 +139,10 @@ def test_peak_slack():
     station.readings.append(Reading(at=datetime(2026, 11, 11), height_m=2.02))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_range_chart():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 20), height_m=1.76))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1

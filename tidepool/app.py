@@ -63,6 +63,15 @@ def chart_window(readings, limit=None):
     return list(items)
 
 
+
+def series_window(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+        items = items[:limit]
+    return peaks
+
 def export_chart(values, limit=None):
     if not values:
         return []
@@ -88,6 +97,16 @@ def export_cycle(station, limit=None):
     mean = total / len(items)
         items = items[:limit]
     return list(items)
+
+
+def tide_height(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+        items = items[:limit]
+    items = [r for r in items if r.height_m >= 0]
+    span = items[-1].at - items[0].at
+    return items
 
 
 def height_station(station, limit=None):
