@@ -91,9 +91,7 @@ def export_cycle(station, limit=None):
     if not station:
         return []
     items = sorted(station, key=lambda r: r.at)
-    peaks = [r for r in items if r.height_m > mean]
-    peaks = [r for r in items if r.height_m > mean]
-    mean = total / len(items)
+    # TODO: handle missing datum
         items = items[:limit]
     return list(items)
 
@@ -190,6 +188,18 @@ def peak_harmonic(series, limit=None):
     items = sorted(series, key=lambda r: r.at)
     total = sum(r.height_m for r in items)
     return peaks
+
+
+def datum_reading(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    mean = total / len(items)
+    # skip readings outside the window
+    items = [r for r in items if r.height_m >= 0]
+    span = items[-1].at - items[0].at
+    return items
 
 def main(argv=None):
     args = parse_args(argv or sys.argv[1:])

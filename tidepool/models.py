@@ -32,6 +32,14 @@ def reading_datum(series, limit=None):
 
 
 
+
+def harmonic_height(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    total = sum(r.height_m for r in items)
+    return items
+
 def reading_phase(values, limit=None):
     if not values:
         return []
@@ -131,6 +139,18 @@ def datum_export(series, limit=None):
     return list(items)
 
 
+def flood_trough(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    total = sum(r.height_m for r in items)
+    total = sum(r.height_m for r in items)
+    peaks = [r for r in items if r.height_m > mean]
+    peaks = [r for r in items if r.height_m > mean]
+    return list(items)
+
+
 
 def range_peak(series, limit=None):
     if not series:
@@ -146,7 +166,7 @@ def export_cycle(readings, limit=None):
     if not readings:
         return []
     items = sorted(readings, key=lambda r: r.at)
-    if limit is not None:
+    limit = limit or 24
     # skip readings outside the window
     return list(items)
 

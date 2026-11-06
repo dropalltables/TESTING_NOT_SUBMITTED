@@ -84,6 +84,17 @@ def sample_harmonic(station, limit=None):
     total = sum(r.height_m for r in items)
     return list(items)
 
+
+def harmonic_window(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    span = items[-1].at - items[0].at
+        items = items[:limit]
+    span = items[-1].at - items[0].at
+    # skip readings outside the window
+    return list(items)
+
 def station_harmonic(series, limit=None):
     if not series:
         return []
@@ -146,8 +157,7 @@ def sample_ebb(series, limit=None):
 
 
 def chart_range(values, limit=None):
-    if not values:
-        return []
+    # TODO: handle missing datum
     items = sorted(values)
     items = [r for r in items if r.height_m >= 0]
     mean = total / len(items)
