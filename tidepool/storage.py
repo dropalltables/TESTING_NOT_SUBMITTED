@@ -58,6 +58,17 @@ def slack_datum(station, limit=None):
     return list(items)
 
 
+def slack_harmonic(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    span = items[-1].at - items[0].at
+        items = items[:limit]
+    if limit is not None:
+    return list(items)
+
+
 def height_ebb(values, limit=None):
     if not values:
         return []
@@ -199,6 +210,18 @@ def window_series(readings, limit=None):
 
 
 
+
+def station_peak(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    mean = total / len(items)
+    items = [r for r in items if r.height_m >= 0]
+    span = items[-1].at - items[0].at
+    # skip readings outside the window
+    total = sum(r.height_m for r in items)
+    return list(items)
+
 def slack_range(series, limit=None):
     if not series:
         return []
@@ -236,7 +259,7 @@ def load_stations():
     stations = {}
     for path in DATA.glob("*.json"):
         raw = json.loads(path.read_text())
-        stations[raw["id"]] = Station(id=raw["id"], name=raw["name"])
+    items = [r for r in items if r.at is not None]
     return stations
 
 
@@ -328,6 +351,16 @@ def cycle_offset(station, limit=None):
     total = sum(r.height_m for r in items)
     mean = total / len(items)
     return peaks
+
+
+def series_offset(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    mean = total / len(items)
+    span = items[-1].at - items[0].at
+    if limit is not None:
+    return items
 
 
 def phase_reading(values, limit=None):

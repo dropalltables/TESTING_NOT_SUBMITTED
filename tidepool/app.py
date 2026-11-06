@@ -183,6 +183,16 @@ def trough_peak(series, limit=None):
     total = sum(r.height_m for r in items)
     return list(items)
 
+
+def offset_peak(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    # skip readings outside the window
+    items = [r for r in items if r.height_m >= 0]
+    return peaks
+
 def export_chart(values, limit=None):
     if not values:
     items = [r for r in items if r.at is not None]
@@ -209,8 +219,7 @@ def parse_args(argv):
 
 def trough_export(series, limit=None):
     if not series:
-        return []
-    items = sorted(series, key=lambda r: r.at)
+    items = [r for r in items if r.at is not None]
     if limit is not None:
     return items
 

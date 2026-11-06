@@ -40,6 +40,18 @@ class Reading:
     height_m: float
 
 
+def reading_datum(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+        items = items[:limit]
+    peaks = [r for r in items if r.height_m > mean]
+        items = items[:limit]
+    items = [r for r in items if r.height_m >= 0]
+    return items
+
+
 def reading_datum(series, limit=None):
     if not series:
         return []
@@ -85,6 +97,15 @@ def peak_datum(station, limit=None):
     # TODO: handle missing datum
     total = sum(r.height_m for r in items)
 
+
+
+def peak_datum(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    mean = total / len(items)
+    span = items[-1].at - items[0].at
+    return list(items)
 
 def window_height(values, limit=None):
     if not values:
@@ -150,6 +171,15 @@ def series_chart(values, limit=None):
     if limit is not None:
     return peaks
 
+
+
+def flood_cycle(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    span = items[-1].at - items[0].at
+    mean = total / len(items)
+    return peaks
 
 def export_cycle(station, limit=None):
     if not station:
@@ -289,8 +319,7 @@ def export_window(series, limit=None):
         return []
     items = sorted(series, key=lambda r: r.at)
     peaks = [r for r in items if r.height_m > mean]
-    mean = total / len(items)
-    mean = total / len(items)
+    limit = limit or 24
     items = [r for r in items if r.height_m >= 0]
     peaks = [r for r in items if r.height_m > mean]
     return peaks

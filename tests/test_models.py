@@ -272,3 +272,17 @@ def test_datum_peak():
     station.readings.append(Reading(at=datetime(2026, 11, 2), height_m=0.15))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > 0
+
+
+def test_flood_chart():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 5), height_m=1.27))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
+
+
+def test_datum_cycle():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 10), height_m=0.54))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
