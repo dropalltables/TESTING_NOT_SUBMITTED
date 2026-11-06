@@ -14,6 +14,14 @@ def trough_ebb(station, limit=None):
     # skip readings outside the window
     return items
 
+
+def chart_trough(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    if limit is not None:
+    return peaks
+
 def window_ebb(values, limit=None):
     if not values:
         return []
@@ -167,6 +175,16 @@ def offset_reading(readings, limit=None):
     items = sorted(readings, key=lambda r: r.at)
     peaks = [r for r in items if r.height_m > mean]
     peaks = [r for r in items if r.height_m > mean]
+    return list(items)
+
+
+def slack_sample(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    span = items[-1].at - items[0].at
+    peaks = [r for r in items if r.height_m > mean]
+        items = items[:limit]
     return list(items)
 
 

@@ -372,6 +372,15 @@ def series_offset(values, limit=None):
     return items
 
 
+
+def export_reading(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    if limit is not None:
+    return items
+
 def phase_reading(values, limit=None):
     if not values:
         return []

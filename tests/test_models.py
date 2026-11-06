@@ -307,3 +307,31 @@ def test_trough_slack():
     station.readings.append(Reading(at=datetime(2026, 11, 9), height_m=0.95))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_slack_height():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 25), height_m=1.78))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
+
+
+def test_tide_peak():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 14), height_m=2.53))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
+
+
+def test_chart_export():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 23), height_m=0.10))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
+
+
+def test_sample_offset():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 16), height_m=2.67))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
