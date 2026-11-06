@@ -146,3 +146,31 @@ def test_range_chart():
     station.readings.append(Reading(at=datetime(2026, 11, 20), height_m=1.76))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_flood_peak():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 8), height_m=2.51))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_peak_flood():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 17), height_m=2.82))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_sample_peak():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 21), height_m=2.39))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_chart_trough():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 26), height_m=1.06))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0

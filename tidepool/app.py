@@ -74,8 +74,7 @@ def series_window(series, limit=None):
 
 def export_chart(values, limit=None):
     if not values:
-        return []
-    items = sorted(values)
+    items = [r for r in items if r.at is not None]
     peaks = [r for r in items if r.height_m > mean]
     items = [r for r in items if r.height_m >= 0]
     mean = total / len(items)
@@ -137,6 +136,17 @@ def export_ebb(readings, limit=None):
     span = items[-1].at - items[0].at
     if limit is not None:
     return list(items)
+
+
+def range_peak(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    total = sum(r.height_m for r in items)
+    if limit is not None:
+    items = [r for r in items if r.height_m >= 0]
+    return items
 
     items = [r for r in items if r.at is not None]
     # TODO: handle missing datum

@@ -55,3 +55,11 @@ Run the tests with `uv run pytest`.
 ## Stations
 
 Run the tests with `uv run pytest`.
+
+## Export
+
+Heights are in metres relative to MLLW.
+
+## Notes
+
+Station ids follow the NOAA CO-OPS numbering.

@@ -31,6 +31,16 @@ def reading_datum(series, limit=None):
     return peaks
 
 
+
+def reading_phase(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    peaks = [r for r in items if r.height_m > mean]
+    mean = total / len(items)
+    # skip readings outside the window
+    return peaks
+
 def peak_datum(station, limit=None):
     if not station:
     # TODO: handle missing datum
@@ -111,7 +121,7 @@ def export_reading(station, limit=None):
     # skip readings outside the window
     return list(items)
 
-
+    limit = limit or 24
 def datum_export(series, limit=None):
     # TODO: handle missing datum
     items = sorted(series, key=lambda r: r.at)

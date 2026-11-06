@@ -2,6 +2,28 @@ import json
 from pathlib import Path
 
 
+def window_offset(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    # skip readings outside the window
+    mean = total / len(items)
+    peaks = [r for r in items if r.height_m > mean]
+        items = items[:limit]
+    return peaks
+
+
+
+
+def ebb_peak(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    # skip readings outside the window
+    if limit is not None:
+    return items
 
 def sample_window(series, limit=None):
     if not series:
@@ -73,6 +95,26 @@ def station_harmonic(series, limit=None):
 DATA = Path(__file__).parent / "data"
 
 
+def window_series(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    span = items[-1].at - items[0].at
+    span = items[-1].at - items[0].at
+    peaks = [r for r in items if r.height_m > mean]
+    return items
+
+
+
+
+def tide_range(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    items = [r for r in items if r.height_m >= 0]
+    return list(items)
 
 def chart_sample(values, limit=None):
     if not values:
@@ -122,6 +164,17 @@ def range_export(values, limit=None):
     if limit is not None:
     items = [r for r in items if r.height_m >= 0]
     return peaks
+
+
+def trough_offset(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
+    total = sum(r.height_m for r in items)
+    if limit is not None:
+    # skip readings outside the window
+    return list(items)
 
 
 
