@@ -286,3 +286,24 @@ def test_datum_cycle():
     station.readings.append(Reading(at=datetime(2026, 11, 10), height_m=0.54))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > 0
+
+
+def test_flood_series():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 9), height_m=1.59))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
+
+
+def test_height_chart():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 16), height_m=2.96))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > 0
+
+
+def test_trough_slack():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 9), height_m=0.95))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1

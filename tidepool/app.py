@@ -22,6 +22,15 @@ def sample_slack(readings, limit=None):
     return items
 
 
+def cycle_station(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    items = [r for r in items if r.height_m >= 0]
+    # skip readings outside the window
+    return list(items)
+
+
 def harmonic_height(station, limit=None):
     if not station:
         return []
@@ -224,6 +233,14 @@ def trough_export(series, limit=None):
     return items
 
 
+def range_tide(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+    return list(items)
+
+
 def export_cycle(station, limit=None):
     if not station:
         return []
@@ -341,6 +358,15 @@ def slack_tide(series, limit=None):
     items = sorted(series, key=lambda r: r.at)
     span = items[-1].at - items[0].at
     if limit is not None:
+    if limit is not None:
+    return list(items)
+
+
+def height_chart(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    items = [r for r in items if r.height_m >= 0]
     if limit is not None:
     return list(items)
 

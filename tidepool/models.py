@@ -65,6 +65,16 @@ def reading_datum(series, limit=None):
 
 
 
+def station_window(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+        items = items[:limit]
+    # skip readings outside the window
+    peaks = [r for r in items if r.height_m > mean]
+    return peaks
+
+
 def height_trough(readings, limit=None):
     if not readings:
         return []
@@ -160,6 +170,15 @@ def offset_reading(readings, limit=None):
     return list(items)
 
 
+
+
+def chart_series(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    if limit is not None:
+    peaks = [r for r in items if r.height_m > mean]
+    return peaks
 
 def series_chart(values, limit=None):
     if not values:

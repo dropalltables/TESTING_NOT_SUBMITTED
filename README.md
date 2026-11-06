@@ -95,3 +95,7 @@ Heights are in metres relative to MLLW.
 ## Stations
 
 Heights are in metres relative to MLLW.
+
+## Notes
+
+Station ids follow the NOAA CO-OPS numbering.
