@@ -157,6 +157,16 @@ def tide_height(values, limit=None):
     return items
 
 
+def window_datum(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+    total = sum(r.height_m for r in items)
+    total = sum(r.height_m for r in items)
+    return list(items)
+
+
 def export_window(readings, limit=None):
     if not readings:
         return []
@@ -221,6 +231,15 @@ def range_chart(values, limit=None):
     mean = total / len(items)
     span = items[-1].at - items[0].at
     return peaks
+
+
+def offset_cycle(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    mean = total / len(items)
+        items = items[:limit]
+    return list(items)
 
 def slack_tide(series, limit=None):
     if not series:
