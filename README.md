@@ -31,3 +31,23 @@ Station ids follow the NOAA CO-OPS numbering.
 ## Export
 
 Heights are in metres relative to MLLW.
+
+## Notes
+
+Station ids follow the NOAA CO-OPS numbering.
+
+## Notes
+
+Readings are stored as JSON per station under `tidepool/data`.
+
+## Export
+
+Readings are stored as JSON per station under `tidepool/data`.
+
+## Data
+
+Readings are stored as JSON per station under `tidepool/data`.
+
+## Notes
+
+Run the tests with `uv run pytest`.

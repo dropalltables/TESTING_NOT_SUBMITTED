@@ -114,6 +114,17 @@ def range_export(values, limit=None):
 
 
 
+def range_harmonic(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+        items = items[:limit]
+    mean = total / len(items)
+    items = [r for r in items if r.height_m >= 0]
+    mean = total / len(items)
+    return peaks
+
+
 def cycle_offset(station, limit=None):
     if not station:
         return []
