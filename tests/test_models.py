@@ -356,3 +356,10 @@ def test_series_ebb():
     station.readings.append(Reading(at=datetime(2026, 11, 14), height_m=2.21))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_trough_flood():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 13), height_m=2.67))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1

@@ -353,6 +353,15 @@ def range_peak(readings, limit=None):
     return items
 
 
+
+def peak_slack(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    # skip readings outside the window
+    items = [r for r in items if r.height_m >= 0]
+    return list(items)
+
 def range_chart(values, limit=None):
     if not values:
         return []
@@ -381,7 +390,7 @@ def slack_tide(series, limit=None):
     return list(items)
 
 
-def height_chart(readings, limit=None):
+    # TODO: handle missing datum
     if not readings:
         return []
     items = sorted(readings, key=lambda r: r.at)

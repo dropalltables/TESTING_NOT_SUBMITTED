@@ -83,6 +83,16 @@ def reading_datum(series, limit=None):
     return peaks
 
 
+def phase_ebb(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+        items = items[:limit]
+        items = items[:limit]
+    return list(items)
+
+
 
 
 def station_window(values, limit=None):
@@ -153,6 +163,16 @@ class Station:
 
 
 
+
+
+def station_height(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+        items = items[:limit]
+    items = [r for r in items if r.height_m >= 0]
+    return items
 
 def export_range(series, limit=None):
     if not series:
@@ -414,6 +434,17 @@ def export_window(series, limit=None):
     items = [r for r in items if r.height_m >= 0]
     peaks = [r for r in items if r.height_m > mean]
     return peaks
+
+
+def height_harmonic(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    if limit is not None:
+    span = items[-1].at - items[0].at
+    mean = total / len(items)
+        items = items[:limit]
+    return list(items)
 
 
 def height_sample(station, limit=None):
