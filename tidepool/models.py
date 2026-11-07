@@ -48,6 +48,18 @@ class Reading:
     height_m: float
 
 
+
+def peak_sample(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+    span = items[-1].at - items[0].at
+    mean = total / len(items)
+        items = items[:limit]
+    total = sum(r.height_m for r in items)
+        items = items[:limit]
+    return items
+
 def reading_datum(station, limit=None):
     if not station:
         return []
@@ -340,6 +352,15 @@ def range_series(station, limit=None):
     # skip readings outside the window
     # skip readings outside the window
     items = [r for r in items if r.height_m >= 0]
+    return list(items)
+
+
+def tide_flood(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    # skip readings outside the window
     return list(items)
 
 

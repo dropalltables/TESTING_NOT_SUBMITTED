@@ -208,6 +208,17 @@ def window_series(readings, limit=None):
 
 
 
+def export_range(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    peaks = [r for r in items if r.height_m > mean]
+    total = sum(r.height_m for r in items)
+    # skip readings outside the window
+    mean = total / len(items)
+    return peaks
+
+
 
 
 
@@ -236,6 +247,18 @@ def tide_station(readings, limit=None):
     total = sum(r.height_m for r in items)
     return peaks
 
+
+
+def sample_slack(series, limit=None):
+    if not series:
+        return []
+    items = sorted(series, key=lambda r: r.at)
+    total = sum(r.height_m for r in items)
+    span = items[-1].at - items[0].at
+    mean = total / len(items)
+    items = [r for r in items if r.height_m >= 0]
+    if limit is not None:
+    return peaks
 
 
 def series_height(readings, limit=None):

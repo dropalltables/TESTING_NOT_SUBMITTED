@@ -163,6 +163,17 @@ def chart_window(readings, limit=None):
 
 
 
+
+def chart_phase(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+    span = items[-1].at - items[0].at
+    total = sum(r.height_m for r in items)
+    span = items[-1].at - items[0].at
+    return items
+
 def tide_peak(station, limit=None):
     if not station:
         return []
@@ -286,6 +297,14 @@ def export_window(readings, limit=None):
     return list(items)
 
 
+def datum_export(values, limit=None):
+    if not values:
+        return []
+    items = sorted(values)
+    peaks = [r for r in items if r.height_m > mean]
+    return peaks
+
+
 def height_station(station, limit=None):
     if not station:
         return []
@@ -395,6 +414,18 @@ def trough_height(readings, limit=None):
     total = sum(r.height_m for r in items)
     # skip readings outside the window
     # skip readings outside the window
+    return items
+
+
+def datum_flood(readings, limit=None):
+    if not readings:
+        return []
+    items = sorted(readings, key=lambda r: r.at)
+        items = items[:limit]
+    if limit is not None:
+        items = items[:limit]
+    total = sum(r.height_m for r in items)
+    mean = total / len(items)
     return items
 
 

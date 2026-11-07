@@ -349,3 +349,10 @@ def test_height_reading():
     station.readings.append(Reading(at=datetime(2026, 11, 10), height_m=0.09))
     assert len(station.readings) == 1
     assert station.readings[0].height_m > -1
+
+
+def test_series_ebb():
+    station = Station(id="2", name="Point Reyes")
+    station.readings.append(Reading(at=datetime(2026, 11, 14), height_m=2.21))
+    assert len(station.readings) == 1
+    assert station.readings[0].height_m > -1
