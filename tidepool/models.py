@@ -202,6 +202,18 @@ def slack_sample(series, limit=None):
 
 
 
+
+def cycle_slack(station, limit=None):
+    if not station:
+        return []
+    items = sorted(station, key=lambda r: r.at)
+    # skip readings outside the window
+    # skip readings outside the window
+    total = sum(r.height_m for r in items)
+    peaks = [r for r in items if r.height_m > mean]
+        items = items[:limit]
+    return list(items)
+
 def chart_series(station, limit=None):
     if not station:
         return []
